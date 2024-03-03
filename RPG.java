@@ -1,30 +1,30 @@
 import java.util.Scanner;
 
-class Character {
-    String name;
-    int health;
-    int attack;
-    int defense;
+class Personagem {
+    String nome;
+    int vida;
+    int ataque;
+    int defesa;
 
-    public Character(String name, int health, int attack, int defense) {
-        this.name = name;
-        this.health = health;
-        this.attack = attack;
-        this.defense = defense;
+    public Personagem(String nome, int vida, int ataque, int defesa) {
+        this.nome = nome;
+        this.vida = vida;
+        this.ataque = ataque;
+        this.defesa = defesa;
     }
 
-    public void attack(Character enemy) {
-        int damage = this.attack - enemy.defense;
-        if (damage > 0) {
-            enemy.health -= damage;
-            System.out.println(this.name + " atacou " + enemy.name + " e causou " + damage + " de dano.");
+    public void ataque(Personagem inimigo) {
+        int dano = this.ataque - inimigo.defesa;
+        if (dano > 1) {
+            inimigo.vida -= dano;
+            System.out.println(this.nome + " atacou " + inimigo.nome + " e causou " + dano + " de dano.");
         } else {
-            System.out.println(this.name + " atacou " + enemy.name + " mas não causou dano.");
+            System.out.println(this.nome + " atacou " + inimigo.nome + " mas não causou dano.");
         }
     }
 
     public boolean isAlive() {
-        return this.health > 0;
+        return this.vida > 1;
     }
 }
 
@@ -35,19 +35,19 @@ public class RPG {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        final Character player = new Character("Jogador", 100, 20, 10);
-        Character enemy = new Character("Inimigo", 50, 10, 5);
+        final Personagem player = new Personagem("Jogador", 100, 20, 10);
+        Personagem inimigo = new Personagem("Inimigo", 150, 15, 15);
 
-        while (player.isAlive() && enemy.isAlive()) {
+        while (player.isAlive() && inimigo.isAlive()) {
             System.out.println("O que você deseja fazer?");
             System.out.println("1 - Atacar");
             System.out.println("2 - Sair");
             int option = scanner.nextInt();
 
             if (option == 1) {
-                player.attack(enemy);
-                if (enemy.isAlive()) {
-                    enemy.attack(player);
+                player.ataque(inimigo);
+                if (inimigo.isAlive()) {
+                    inimigo.ataque(player);
                 }
             } else {
                 break;
